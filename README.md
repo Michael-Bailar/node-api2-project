@@ -208,3 +208,10 @@ Create a new React application and connect it to your server:
 - Use `create-react-app` to create an application inside the root folder, name it `client`.
 - From the React application connect to the `/api/posts` endpoint in the API and show the list of posts.
 - Style the list of posts however you see fit.
+
+
+
+Need to:
+  go back and remake requests.
+  create posts/:id/comments
+  create get/:id/comments
