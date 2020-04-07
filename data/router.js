@@ -4,6 +4,39 @@ const DB = require("./db.js")
 
 const router = express.Router()
 
+router.post('/', (req, res) => {
+
+    if(req.body.title && req.body.contents) {
+        DB.insert(req.body)
+        .then(db => {
+            res.status(201).json(db)
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500).json({
+                message: "error adding data"
+            })
+        })
+    } else {
+        res.status(404).json({
+            message: "post not found"
+        })
+    }
+})
+
+router.post('/:id/comments', (req, res) => {
+    DB.insertComment(req.body)
+    .then((comment) => {
+        res.status(201).json(comment)
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(500).json({
+            message: "error adding data"
+        })
+    })
+})
+
 router.get('/', (req, res) => {
     DB.find(req.query)
     .then(db => {
@@ -43,32 +76,6 @@ router.get('/:id/comments', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({errorMessage: 'error reading comments'})
-    })
-})
-
-router.post('/', (req, res) => {
-    DB.insert(req.body)
-    .then(db => {
-        res.status(201).json(db)
-    })
-    .catch(error => {
-        console.log(error)
-        res.status(500).json({
-            message: "error adding data"
-        })
-    })
-})
-
-router.post('/:id/comments', (req, res) => {
-    DB.insertComment(req.body)
-    .then((comment) => {
-        res.status(201).json(comment)
-    })
-    .catch(error => {
-        console.log(error)
-        res.status(500).json({
-            message: "error adding data"
-        })
     })
 })
 
